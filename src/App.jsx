@@ -9,11 +9,11 @@ function App() {
     if (savedData) {
       return savedData;
     }
-    ({
+    return {
       good: 0,
       neutral: 0,
       bad: 0,
-    });
+    };
   });
   useEffect(() => {
     localStorage.setItem("feedback", JSON.stringify(feedback));
