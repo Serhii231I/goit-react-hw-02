@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Description from "./components/Description/Description";
 import Feedback from "./components/Feedback/Feedback";
 import Options from "./components/Options/Options";
+import Notification from "./components/Notification/Notification";
 
 function App() {
   const [feedback, setFeedback] = useState(() => {
@@ -30,13 +31,15 @@ function App() {
   };
   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
   const positiveProcent =
-    totalFeedback > 0
-      ? 100 - Math.round((feedback.bad / totalFeedback) * 100)
-      : 0;
+    totalFeedback > 0 ? Math.round((feedback.good / totalFeedback) * 100) : 0;
   return (
     <>
       <Description />
-      <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} />
+      <Options
+        updateFeedback={updateFeedback}
+        resetFeedback={resetFeedback}
+        totalFeedback={totalFeedback}
+      />
       {totalFeedback > 0 ? (
         <Feedback
           feedback={feedback}
@@ -44,7 +47,7 @@ function App() {
           positive={positiveProcent}
         />
       ) : (
-        "No feedback yet"
+        <Notification />
       )}
     </>
   );
